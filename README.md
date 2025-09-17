@@ -13,7 +13,7 @@ The Gold Layer provides **clean, aggregated, business-ready data** used for dash
 ---
 
 ## 📂 Project Structure  
-
+```
 sql-gold-layer/
 │
 ├── README.md # Project overview, setup, conventions
@@ -38,7 +38,7 @@ sql-gold-layer/
 │
 └── config/ # Environment, pipeline, or database configs
 └── settings.yaml # Connection strings, secrets, parameters
-
+```
 
 ---
 
