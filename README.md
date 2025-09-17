@@ -16,17 +16,28 @@ The Gold Layer provides **clean, aggregated, business-ready data** used for dash
 
 sql-gold-layer/
 │
-├── README.md # Project documentation
-├── diagrams/ # ERDs, pipeline diagrams
-├── scripts/ # SQL scripts
-│ ├── staging/ # Staging (if used)
-│ ├── silver/ # Cleansing / transformations
-│ ├── gold/ # Final aggregated tables & KPIs
-│ └── utils/ # Helper scripts (indexes, views)
-├── reports/ # KPI definitions & validation queries
-├── notebooks/ # Optional EDA / validation (SQL or Python)
-├── dashboard/ # Power BI / Tableau / Looker files
-└── docs/ # Extended documentation (ERD, data dictionary, KPIs)
+├── README.md # Project overview, setup, conventions
+├── diagrams/ # ERDs, pipeline diagrams, flowcharts
+├── scripts/ # All SQL scripts
+│ ├── staging/ # Raw imports, staging tables
+│ ├── silver/ # Cleansing, transformation scripts
+│ ├── gold/ # Aggregation, KPI, business logic
+│ └── utils/ # Helper scripts (indexes, views, UDFs)
+│
+├── reports/ # KPI definitions, validation, audit queries
+├── dashboard/ # Power BI, Tableau, Looker files
+├── notebooks/ # EDA/validation (SQL, Python, notebooks)
+│
+├── data/ # Example input data or synthetic samples
+│ ├── raw/ # Source raw files (CSV, JSON)
+│ └── processed/ # Cleansed, joined datasets
+│
+├── docs/ # Extended docs (ERD, data dictionary, KPIs)
+│ ├── data-dictionary.md # Column descriptions, analytics notes
+│ └── KPIs.md # KPI list and definitions
+│
+└── config/ # Environment, pipeline, or database configs
+└── settings.yaml # Connection strings, secrets, parameters
 
 
 ---
