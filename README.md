@@ -87,7 +87,7 @@ sql-gold-layer/
 
 Extended documentation is in the **docs/** folder:  
 - `docs/erd.png` → Entity Relationship Diagram  
-- [Data Dictionary](docs/data-dictionary.md)
+- `docs/data-dictionary.md` → Columns, Sample data, Columns relationships, Quality check → [Data Dictionary](docs/data-dictionary.md)
 - `docs/Industry Overview.docx` → E-Commerce industry overview report 
 - `docs/Industry KPIs.docx` → KPI formulas & explanations  
 - `docs/KPI Mapping.xlsx` → Dataset KPIs calculations
