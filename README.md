@@ -1,7 +1,7 @@
 # 📊 SQL Gold Layer Project – Dashboard & Reporting  
 
 ## 📌 Overview  
-This project implements the **Gold Layer** of a SQL-based data pipeline.  
+This project implements the **Gold Layer** of a SQL-based data pipeline, and then the Data Analyst role comes
 The Gold Layer provides **clean, aggregated, business-ready data** used for dashboards and business reports.  
 
 ### Objectives  
