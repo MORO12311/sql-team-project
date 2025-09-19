@@ -17,27 +17,24 @@ The Gold Layer provides **clean, aggregated, business-ready data** used for dash
 sql-gold-layer/
 │
 ├── README.md               # Project overview, setup, conventions
-├── diagrams/               # ERDs, pipeline diagrams, flowcharts
 ├── scripts/                # All SQL scripts
-│   ├── staging/            # Raw imports, staging tables
-│   ├── silver/             # Cleansing, transformation scripts
-│   ├── gold/               # Aggregation, KPI, business logic
-│   └── utils/              # Helper scripts (indexes, views, UDFs)
+│   └── gold/               # Check Quality of Silver, Aggregation, KPI, business logic, indexes, views
 │
-├── reports/                # KPI definitions, validation, audit queries
-├── dashboard/              # Power BI, Tableau, Looker files
-├── notebooks/              # EDA/validation (SQL, Python, notebooks)
+├── reports/                # Research, KPI definitions
+├── dashboard/              # Excel, Power BI
 │
 ├── data/                   # Example input data or synthetic samples
-│   ├── raw/                # Source raw files (CSV, JSON)
+│   ├── raw/                # Source raw files (SQL Script file for creation)
 │   └── processed/          # Cleansed, joined datasets
 │
-├── docs/                   # Extended docs (ERD, data dictionary, KPIs)
-│   ├── data-dictionary.md  # Column descriptions, analytics notes
-│   └── KPIs.md             # KPI list and definitions
-│
-└── config/                 # Environment, pipeline, or database configs
-    └── settings.yaml       # Connection strings, secrets, parameters
+└──  docs/                   # Extended docs (ERD, data dictionary, KPIs)
+│   ├── data-dictionary.md  # Column descriptions, Sample data, Column relationship, analytics notes
+|   ├── Industry Overview.docx 
+|   ├── ERD Model.png       # Modeling data tables and defining the relationships 
+|   ├── KPI mapping.xlsx    # Show how to calculate or apply KPIs on the dataset   
+    └── Industry KPIs.docx  # KPI list and definitions
+
+
 ```
 
 ---
@@ -47,10 +44,10 @@ sql-gold-layer/
 ### 1. Setup  
 - Create Git repository  
 - Define coding standards  
-- Add `.gitignore` for unnecessary files  
+- Add `.gitignore` for unnecessary files 
 
 ### 2. Data Preparation  
-- Check data quality (missing values, duplicates, outliers)  
+- Check data quality (Silver quality)  
 - Apply business rules  
 - Create derived columns (profit, margin, session duration)  
 
@@ -59,9 +56,18 @@ sql-gold-layer/
 - Validate assumptions  
 
 ### 4. Gold Layer Modeling  
-- Build **fact tables**: `fact_sales`, `fact_sessions`, `fact_orders`  
-- Build **dimension tables**: `dim_date`, `dim_customer`, `dim_product`  
-- Aggregate data for reporting  
+#### ⭐ Fact Constellation Schema (Galaxy Schema)
+
+**Fact Tables**
+- `orders`
+- `order_items`
+- `order_item_refunds`
+- `website_pageviews`
+
+**Dimension Tables**
+- `website_sessions`
+- `products`
+
 
 ### 5. KPI Calculations  
 - GMV (Gross Merchandise Value)  
@@ -77,37 +83,28 @@ sql-gold-layer/
 
 ---
 
-## 📊 Example KPIs  
-
-| KPI | Definition | Formula | Notes |  
-|-----|------------|---------|-------|  
-| GMV | Total sales value | `SUM(order_value * quantity)` | Industry benchmark varies |  
-| CAC | Acquisition cost per customer | `(Sales + Marketing Cost) / New Customers` | Must be < CLV |  
-| CLV | Avg. customer lifetime value | `Avg revenue × Avg lifespan` | Key profitability metric |  
-
----
-
 ## 📑 Documentation  
 
 Extended documentation is in the **docs/** folder:  
-- `docs/erd.md` → Entity Relationship Diagram  
+- `docs/erd.png` → Entity Relationship Diagram  
 - `docs/data_dictionary.md` → Tables, columns, definitions  
-- `docs/kpi_definitions.md` → KPI formulas & explanations  
-- `docs/project_notes.md` → Notes, assumptions, and decisions  
-
+- `docs/Industry Overview.docx` → E-Commerce industry overview report 
+- `docs/Industry KPIs.docx` → KPI formulas & explanations  
+- `docs/KPI Mapping.xlsx` → Dataset KPIs calculations
+- 
 ---
 
 ## ✅ Deliverables  
 - SQL scripts for **Gold Layer tables & KPIs**  
 - **Documentation** of KPI definitions & formulas  
-- **Dashboard** (Power BI / Tableau / Looker) with KPIs & drilldowns  
+- **Dashboard** (Excel / Power BI) with KPIs & drilldowns  
 - Git repository with version-controlled code  
 
 ---
 
 ## 👨‍💻 Contributors  
-- Project Owner: [Your Name]  
-- Data Engineering Support: [Team/Colleague if any]  
-- BI Developer: [Team/Colleague if any]  
+- Project Team Leader: Nouran 
+- Data Engineering Support: Omar  
+- Data Analyst & BI Developer: Manar, Faris, Hassan, Nouran, Omar
 
 ---
