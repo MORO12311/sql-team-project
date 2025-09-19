@@ -6,7 +6,7 @@ The Gold Layer provides **clean, aggregated, business-ready data** used for dash
 
 ### Objectives  
 - Ensure **data quality & governance**  
-- Create **derived metrics** and **KPI calculations**  
+- Create **derived metrics** and **KPI calculations** 
 - Build **fact and dimension tables**  
 - Power **dashboards & reports** with optimized SQL queries  
 
