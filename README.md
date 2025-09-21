@@ -18,6 +18,7 @@ sql-gold-layer/
 │
 ├── README.md               # Project overview, setup, conventions
 ├── scripts/                # All SQL scripts
+│   ├── KPIs Views          # Create views for KPIs calculations
 │   └── gold/               # Check Quality of Silver, Aggregation, KPI, business logic, indexes, views
 │
 ├── reports/                # Research, KPI definitions
