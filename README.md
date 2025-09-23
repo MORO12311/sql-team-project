@@ -18,8 +18,7 @@ sql-gold-layer/
 │
 ├── README.md               # Project overview, setup, conventions
 ├── scripts/                # All SQL scripts
-│   ├── KPIs Views          # Create views for KPIs calculations
-│   └── gold/               # Check Quality of Silver, Aggregation, KPI, business logic, indexes, views
+│   └── KPIs Views          # Create views for KPIs calculations, CTEs, EDA
 │
 ├── reports/                # Research, KPI definitions
 ├── dashboard/              # Excel, Power BI
@@ -78,7 +77,7 @@ sql-gold-layer/
 - Churn Rate  
 
 ### 6. Dashboard & Reports  
-- Connect BI tool (Power BI, Tableau, Looker)  
+- Connect BI tool (Power BI)  
 - Create dashboards (executive overview + drilldowns)  
 - Validate numbers with SQL queries  
 
