@@ -1,67 +1,78 @@
 USE depiecommerce;
 
 -- _________________________Manar________________________________
-SELECT 
-    *
-FROM
-    website_sessions;
-
-
+select * from website_sessions;
 -- 1. Traffic & Engagement
 -- ●	Website Traffic (count).
-SELECT 
-    COUNT(website_session_id) AS total_sessions
-FROM
-    website_sessions
+CREATE VIEW traffic_view AS
+    (SELECT 
+        COUNT(website_session_id) AS total_sessions
+    FROM
+        website_sessions);
 
 -- ●	Sessions for Unique users = 394,318
-SELECT 
-    COUNT(DISTINCT user_id) AS unique_users
-FROM
-    website_sessions Sessions count per user 
+CREATE VIEW uniqsession_view AS
+    (SELECT 
+        COUNT(DISTINCT user_id) AS unique_users
+    FROM
+        website_sessions);
+-- Sessions count per user 
 -- kol unique user 3mal kam session 
-SELECT 
-    user_id,
-    COUNT(website_session_id) AS sessions_per_user
-FROM website_sessions
-GROUP BY user_id
-ORDER BY sessions_per_user ; 
+CREATE VIEW user_session_view AS
+    (SELECT 
+        user_id, COUNT(website_session_id) AS sessions_per_user
+    FROM
+        website_sessions
+    GROUP BY user_id
+    ORDER BY sessions_per_user); 
 -- اhow many users made sessions with signup and how many did not sign up (y3ny fy session id bs user id null )
 -- in conclusion, all users are signed up 
-SELECT 
-    COUNT(*) AS total_sessions,
-    SUM(CASE WHEN user_id IS NULL THEN 1 ELSE 0 END) AS sessions_without_user,
-    SUM(CASE WHEN user_id IS NOT NULL THEN 1 ELSE 0 END) AS sessions_with_user
-FROM website_sessions;
-
+CREATE VIEW usersignedup_view AS
+    (SELECT 
+        COUNT(*) AS total_sessions,
+        SUM(CASE
+            WHEN user_id IS NULL THEN 1
+            ELSE 0
+        END) AS sessions_without_user,
+        SUM(CASE
+            WHEN user_id IS NOT NULL THEN 1
+            ELSE 0
+        END) AS sessions_with_user
+    FROM
+        website_sessions);
 
 -- ●	Daily/Hourly Traffic → group website_sessions.created_at by day/hour.
 -- Daily Traffic
-SELECT 
-    DATE(created_at) AS day,
-    COUNT(website_session_id) AS sessions
-FROM website_sessions
-GROUP BY DATE(created_at)
-ORDER BY day;
+CREATE VIEW dailytraf_view AS
+    (SELECT 
+        DATE(created_at) AS day,
+        COUNT(website_session_id) AS sessions
+    FROM
+        website_sessions
+    GROUP BY DATE(created_at)
+    ORDER BY day);
 
 -- Hourly Traffic
-SELECT 
-    DATE(created_at) AS day,
-    HOUR(created_at) AS hour,
-    COUNT(website_session_id) AS sessions
-FROM website_sessions
-GROUP BY DATE(created_at), HOUR(created_at)
-ORDER BY day, hour;
+CREATE VIEW hourlytraf_view AS
+    (SELECT 
+        DATE(created_at) AS day,
+        HOUR(created_at) AS hour,
+        COUNT(website_session_id) AS sessions
+    FROM
+        website_sessions
+    GROUP BY DATE(created_at) , HOUR(created_at)
+    ORDER BY day , hour);
 
 -- ●	Top Pages, Entry Pages → website_pageviews.pageview_url; entry page = first pageview per session.
 -- Top Pages aktar urls most viewed (top10)
 -- in conclusion, aktar page bt get viewed hya l products and least 2 are /the-hudson-river-mini-bear, 2610 & /billing, 3617
-SELECT 
-    pageview_url,
-    COUNT(*) AS views
-FROM website_pageviews
-GROUP BY pageview_url
-ORDER BY views
+CREATE VIEW toppages_view AS
+    (SELECT 
+        pageview_url, COUNT(*) AS views
+    FROM
+        website_pageviews
+    GROUP BY pageview_url
+    ORDER BY views)
 ;
 -- Entry Pages (first page per session)
 -- ??????? 
@@ -84,6 +95,7 @@ ORDER BY entry_count DESC
 LIMIT 10;
 
 -- How long a user stayed on your site in one visit
+CREATE VIEW userstay_view AS
 WITH session_times AS (
     SELECT 
         ws.user_id,
@@ -113,6 +125,7 @@ ORDER BY avg_session_duration_seconds DESC;
 
 -- ●	Bounce Rate / Bounce Rates → sessions with only 1 pageview ÷ total sessions.
 -- I recommend doing it by excel 
+CREATE VIEW bounce_view AS
 WITH session_views AS (
     SELECT 
         website_session_id,
@@ -127,6 +140,7 @@ SELECT
     ) AS bounce_rate_percentage
 FROM session_views;
 -- ●	Page Load Time → ❌ not available in schema.
+
 
 >>>>>>> 814ce5f158bd71d82a7d156f489473342597d323
 
