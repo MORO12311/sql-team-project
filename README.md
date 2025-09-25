@@ -5,9 +5,10 @@ This project implements the **Gold Layer** of a SQL-based data pipeline, and the
 The Gold Layer provides **clean, aggregated, business-ready data** used for dashboards and business reports.  
 
 ### Objectives  
-- Ensure **data quality & governance**  
-- Create **derived metrics** and **KPI calculations** 
-- Build **fact and dimension tables**  
+- Ensure **data quality**  
+- Create **derived metrics** 
+- Create **VIEWS for KPI calculations, then put them into SP for batch running** 
+- Define **fact and dimension tables**  
 - Power **dashboards & reports** with optimized SQL queries  
 
 ---
@@ -18,14 +19,13 @@ sql-gold-layer/
 │
 ├── README.md               # Project overview, setup, conventions
 ├── scripts/                # All SQL scripts
-│   └── KPIs Views          # Create views for KPIs calculations, CTEs, EDA
+│    ├── KPIs Views.sql     # Create views for KPIs calculations, CTEs, EDA
+│    └── Quality check.sql  # Check NULLs and duplicates for Identity columns & check If there was Leading & Trailing spaces in text columns
 │
-├── reports/                # Research, KPI definitions
 ├── dashboard/              # Excel, Power BI
 │
 ├── data/                   # Example input data or synthetic samples
-│   ├── raw/                # Source raw files (SQL Script file for creation)
-│   └── processed/          # Cleansed, joined datasets
+│   └── raw data/           # Source raw files (SQL Script file for creation)
 │
 └──  docs/                   # Extended docs (ERD, data dictionary, KPIs)
 │   ├── data-dictionary.md  # Column descriptions, Sample data, Column relationship, analytics notes
