@@ -159,6 +159,14 @@ CREATE VIEW rps_view AS
         website_sessions AS ws ON o.website_session_id = ws.website_session_id
     GROUP BY ws.website_session_id);
 
+-- Revenue Per Click (RPC)
+
+create view rpc as (
+select round((select * from net_revenue ) / count(utm_source), 2)as rpc
+from website_sessions 
+where utm_source is not null );
+
+
 -- Orders by Device and campaign
 
 CREATE VIEW orders_device_view AS
