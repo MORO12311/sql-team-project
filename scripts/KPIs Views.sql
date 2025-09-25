@@ -270,7 +270,6 @@ SELECT
     ) AS ctr_from_previous
 FROM funnel_counts;
 
-<<<<<<< HEAD
 -- --------------------------------------------------------------------------------------------------------------------------------------------
 -- 3. Conversion & Funnel KPIs
 -- Conversion Rate (CVR)
@@ -280,8 +279,7 @@ create view cvr_view as (
 -- Each order must have a session but not vice versa 
 SELECT 
     (SELECT COUNT(order_id) FROM orders) /
-    (SELECT COUNT(website_session_id) FROM website_sessions) AS conversion_rate
-
+    (SELECT COUNT(website_session_id) FROM website_sessions) * 100 AS conversion_rate
 -- ---------------------- OR using subquery
 /* 
 select count(o.order_id)/count(*) as conversion_rate
@@ -352,6 +350,26 @@ SELECT
     *
 FROM
     funnel_conversion_view;
+    
+
+CREATE OR REPLACE VIEW ab_test_results AS
+SELECT 
+    wp.pageview_url AS landing_page,
+    COUNT(DISTINCT ws.website_session_id) AS total_sessions,
+    COUNT(DISTINCT o.order_id) AS total_orders,
+    round(SUM(o.price_usd) - COALESCE(SUM(r.refund_amount_usd), 0), 0)AS net_revenue,
+    round(COUNT(DISTINCT o.order_id) * 1.0 / COUNT(DISTINCT ws.website_session_id) * 100, 2)AS conversion_rate,
+    round((SUM(o.price_usd) - COALESCE(SUM(r.refund_amount_usd), 0)) * 1.0 / COUNT(DISTINCT ws.website_session_id), 2)AS rpc
+FROM website_sessions ws
+LEFT JOIN orders o 
+    ON ws.website_session_id = o.website_session_id
+LEFT JOIN website_pageviews wp
+    ON ws.website_session_id = wp.website_session_id
+LEFT JOIN order_item_refunds r 
+    ON o.order_id = r.order_id
+WHERE wp.pageview_url LIKE '/lander%' OR wp.pageview_url = '/home'  -- include all landers + home
+GROUP BY wp.pageview_url
+ORDER BY net_revenue DESC;  -- optional: sort by revenue
 -- ----------------------------------------------------------------------------------------------------------------------------------------
 -- _______________________________________________Nour_____________________________________________________
 -- 3.Orders and Revenue
@@ -410,7 +428,7 @@ SELECT
 FROM
     orders AS o
         LEFT JOIN
-    order_item_refunds AS oir ON o.order_id = oir.order_id
+    order_item_refunds AS oir ON o.order_id = oir.order_id;
     
 -- Refund/Return Rate by Value
 CREATE VIEW return_rate_by_value AS
@@ -421,7 +439,7 @@ CONCAT(
     2),'%' )AS return_rate_value
 FROM orders o
 LEFT JOIN order_item_refunds as oir
-    ON o.order_id = oir.order_id
+    ON o.order_id = oir.order_id;
     
 -- Refund Rates by Product
 CREATE VIEW return_rate_by_products AS
@@ -441,7 +459,7 @@ LEFT JOIN order_items AS oi
 LEFT JOIN order_item_refunds AS oir
     ON oi.order_item_id = oir.order_item_id
 GROUP BY p.product_id, p.product_name
-ORDER BY return_rate_percent DESC
+ORDER BY return_rate_percent DESC;
 
 -- orders by product 'no of orders that has the product'
 CREATE VIEW orders_by_product AS
@@ -453,7 +471,7 @@ FROM
     products AS p
         LEFT JOIN
     order_items AS oi ON oi.product_id = p.product_id
-GROUP BY p.product_id , p.product_name
+GROUP BY p.product_id , p.product_name;
 
 -- Revenue by product
 CREATE VIEW Rev_by_product AS
@@ -465,7 +483,7 @@ CREATE VIEW Rev_by_product AS
         products AS p
             LEFT JOIN
         order_items AS oi ON p.product_id = oi.product_id
-    GROUP BY p.product_id , p.product_name
+    GROUP BY p.product_id , p.product_name;
     
  -- Revenue by margin  
 create view rev_by_margin as
@@ -476,7 +494,7 @@ create view rev_by_margin as
 FROM products p
 JOIN order_items oi 
     ON p.product_id = oi.product_id
-GROUP BY p.product_id, p.product_name
+GROUP BY p.product_id, p.product_name;
 
 -- Product Portfolio Impact 
 create view Product_Portfolio_Impact as
@@ -490,7 +508,7 @@ FROM products p
 JOIN order_items oi 
     ON p.product_id = oi.product_id
 GROUP BY p.product_id, p.product_name
-ORDER BY revenue_usd DESC
+ORDER BY revenue_usd DESC;
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- --------------------------------------------------------(((((((((FARIS)))))))))--------------------------------------------------------------------------------------------------------------
 -- ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
