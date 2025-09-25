@@ -1,7 +1,7 @@
 USE depiecommerce;
 -- ____________________________________________________________________________________________________________________________________________________________
 -- ____________________________________________________Note!!!_________________________________________________________________________________________________
--- __________________________________________This SP will create 42 VIEWs _____________________________________________________________________________________
+-- __________________________________________This SP will create 43 VIEWs _____________________________________________________________________________________
 -- ____________________________________________________________________________________________________________________________________________________________
 
 DROP PROCEDURE IF EXISTS sp_refresh_kpi_views;
@@ -276,6 +276,23 @@ CREATE VIEW rpc AS
           FROM website_sessions
       ) d
       WHERE unique_users = 1;
+
+-- Cart Abandonment Rate
+	 DROP VIEW IF EXISTS cart_abandonment_rate;
+	 CREATE VIEW cart_abandonment_rate as (
+	WITH sessions_with_cart AS (
+	  SELECT DISTINCT website_session_id
+	  FROM website_pageviews
+	  WHERE pageview_url LIKE '%/cart%'
+	)
+	SELECT
+	  COUNT(s.website_session_id) AS sessions_with_cart,
+	  COUNT(DISTINCT o.order_id) AS orders_completed,
+	  ROUND(((COUNT(s.website_session_id) - COUNT(DISTINCT o.order_id)) * 1.0 / 
+	   NULLIF(COUNT(s.website_session_id),0)) * 100, 1)AS cart_abandonment_rate
+	FROM sessions_with_cart s
+	LEFT JOIN orders AS o
+	  ON o.website_session_id = s.website_session_id);
 
 -- Funnel Depth Counts (excluding home & lander pages)
     DROP VIEW IF EXISTS funnel_depth_count;
