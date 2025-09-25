@@ -24,14 +24,11 @@ sql-gold-layer/
 │
 ├── dashboard/              # Excel, Power BI
 │
-├── data/                   # Example input data or synthetic samples
-│   └── raw data/           # Source raw files (SQL Script file for creation)
-│
 └──  docs/                   # Extended docs (ERD, data dictionary, KPIs)
-│   ├── data-dictionary.md  # Column descriptions, Sample data, Column relationship, analytics notes
-|   ├── Industry Overview.docx 
-|   ├── ERD Model.png       # Modeling data tables and defining the relationships 
-|   ├── KPI mapping.xlsx    # Show how to calculate or apply KPIs on the dataset   
+    ├── data-dictionary.md  # Column descriptions, Sample data, Column relationship, analytics notes
+    ├── Industry Overview.docx 
+    ├── ERD Model.png       # Modeling data tables and defining the relationships  
+    ├── 📊 KPI → Dataset Mapping.docx    # Show how to calculate or apply KPIs on the dataset   
     └── Industry KPIs.docx  # KPI list and definitions
 
 
@@ -44,7 +41,6 @@ sql-gold-layer/
 ### 1. Setup  
 - Create Git repository  
 - Define coding standards  
-- Add `.gitignore` for unnecessary files 
 
 ### 2. Data Preparation  
 - Check data quality (Silver quality)  
@@ -71,10 +67,10 @@ sql-gold-layer/
 
 ### 5. KPI Calculations  
 - GMV (Gross Merchandise Value)  
-- CAC (Customer Acquisition Cost)  
 - CLV (Customer Lifetime Value)  
 - Conversion Rate  
-- Churn Rate  
+- Churn Rate
+- More KPIs are in the mapping file 
 
 ### 6. Dashboard & Reports  
 - Connect BI tool (Power BI)  
@@ -90,7 +86,7 @@ Extended documentation is in the **docs/** folder:
 - `docs/data-dictionary.md` → Columns, Sample data, Columns relationships, Quality check → [Data Dictionary](docs/data-dictionary.md)
 - `docs/Industry Overview.docx` → E-Commerce industry overview report 
 - `docs/Industry KPIs.docx` → KPI formulas & explanations  
-- `docs/KPI Mapping.xlsx` → Dataset KPIs calculations
+- `📊 KPI → Dataset Mapping.docx` → Dataset KPIs calculations
 - 
 ---
 
