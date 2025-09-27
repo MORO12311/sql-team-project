@@ -52,17 +52,23 @@ sql-gold-layer/
 - Validate assumptions  
 
 ### 4. Gold Layer Modeling  
-#### ⭐ Fact Constellation Schema (Galaxy Schema)
 
-**Fact Tables**
-- `orders`
-- `order_items`
-- `order_item_refunds`
-- `website_pageviews`
+### ⭐ Sales Snowflake Schema
+- **Fact Table:** `orders`
+- **Dimensions:** `products`, `order_items`, `order_item_refunds` as a Subdimension to `order_items`
 
-**Dimension Tables**
-- `website_sessions`
-- `products`
+### ⭐ Website Snowflake Schema
+- **Fact Table:** `orders`
+- **Dimensions:** `website_sessions`, `website_pageviews` as a Subdimension to `website_sessions`
+
+---
+
+### 🔗 Shared Dimensions
+- **Products** → shared by `orders`, `order_items`, `order_item_refunds`
+- **Date** → shared by all snowflake schemas
+- **User** → shared by `orders` and `website_sessions`
+- **Website Session** → bridges marketing (`website_sessions`) with sales (`orders`)
+
 
 
 ### 5. KPI Calculations  
@@ -87,7 +93,6 @@ Extended documentation is in the **docs/** folder:
 - `docs/Industry Overview.docx` → E-Commerce industry overview report 
 - `docs/Industry KPIs.docx` → KPI formulas & explanations  
 - `📊 KPI → Dataset Mapping.docx` → Dataset KPIs calculations
-- 
 ---
 
 ## ✅ Deliverables  
